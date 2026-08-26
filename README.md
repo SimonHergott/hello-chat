@@ -17,6 +17,14 @@ The job is disabled until explicitly enabled. `disable` stops it without removin
   sudo loginctl enable-linger "$USER"
   ```
 
+  If `systemctl --user` reports `No medium found`, start the user manager and set the runtime directory in the current shell:
+
+  ```bash
+  uid=$(id -u)
+  sudo systemctl start "user@$uid.service"
+  export XDG_RUNTIME_DIR="/run/user/$uid"
+  ```
+
 - Pi installed and available to this user.
 - Pi already logged in to Codex. This script does not manage credentials.
 - Network access
