@@ -1,6 +1,8 @@
-# Daily Pi billing-period starter
+# Daily Codex billing period starter
 
-OpenAI has reinstated 5 hours limits in Codex. This installs a systemd user timer that runs Pi once per day, by default at 05:00 (server local timezone). Pi sends this prompt to OpenAI Codex and then exits (print mode):
+OpenAI has reinstated 5 hours limits in Codex. I need a codex session started while I sleep to spread my work over 3 sessions instead of 2. 
+
+This installs a systemd user timer that runs Pi once per day, by default at 05:00 (server local timezone). Pi sends this prompt to OpenAI Codex and then exits (print mode):
 
 > Hi, we start a new 5 hour billing period :) Just say OK.
 
