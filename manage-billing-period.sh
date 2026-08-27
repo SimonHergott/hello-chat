@@ -78,10 +78,12 @@ check_timer_installation() {
 }
 
 install_units() {
-    local script_arg pi_arg config_arg
+    local script_arg pi_arg config_arg path_arg
     printf -v script_arg '%q' "$SCRIPT_DIR/start-billing-period.sh"
     printf -v pi_arg '%q' "$PI_BIN"
     printf -v config_arg '%q' "$CONFIG_FILE"
+    # systemd may retain an older PATH (and therefore an older Node).
+    printf -v path_arg '%q' "$(dirname "$PI_BIN"):$PATH"
     mkdir -p "$UNIT_DIR"
 
     cat >"$UNIT_DIR/$SERVICE_NAME" <<EOF
@@ -93,6 +95,7 @@ Type=oneshot
 TimeoutStartSec=10min
 Environment=PI_BILLING_CONFIG=$config_arg
 Environment=PI_COMMAND=$pi_arg
+Environment=PATH=$path_arg
 ExecStart=/bin/bash $script_arg
 EOF
 
