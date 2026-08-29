@@ -96,6 +96,8 @@ TimeoutStartSec=10min
 Environment=PI_BILLING_CONFIG=$config_arg
 Environment=PI_COMMAND=$pi_arg
 Environment=PATH=$path_arg
+StandardOutput=journal
+StandardError=journal
 ExecStart=/bin/bash $script_arg
 EOF
 
@@ -115,7 +117,7 @@ EOF
 }
 
 enable_job() {
-    check_requirements
+    check_requirements || return 1
     install_units
     systemctl --user daemon-reload
     systemctl --user enable "$TIMER_NAME" >/dev/null
